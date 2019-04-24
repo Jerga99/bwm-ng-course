@@ -15,7 +15,6 @@ export class RentalService {
   public getRentals({pageSize = 5, pageNum = 1}): Observable<any> {
     return this.http
             .get(`/api/v1/rentals?pageSize=${pageSize}&pageNum=${pageNum}`)
-            .map(rentalData => rentalData['rentals']);
   }
 
   public getRentalsByCity(city: string): Observable<any> {

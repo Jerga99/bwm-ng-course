@@ -162,7 +162,7 @@ router.get('', function(req, res) {
   Rental.find(query)
       .select('-bookings')
       .skip(skips)
-      .limit(pageSize + 1)
+      .limit(pageSize)
       .sort({'createdAt': -1})
       .exec(function(err, foundRentals) {
 
@@ -174,12 +174,11 @@ router.get('', function(req, res) {
       return res.status(422).send({errors: [{title: 'No Rentals Found!', detail: `There are no rentals for city ${city}`}]});
     }
 
-    let allDataLoaded = false;
-    if (foundRentals.length <= 5 ) {
-      allDataLoaded = true
-    }
+    Rental.count({})
+      .then(allDataCount => {
 
-    return res.json({rentals: foundRentals.splice(0, pageSize), allDataLoaded});
+        return res.json({rentals: foundRentals.splice(0, pageSize), allDataCount});
+      });
   });
 });
 

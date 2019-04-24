@@ -10,6 +10,7 @@ import { EditableModule } from '../common/components/editable/editable.module';
 import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
 import { PaymentModule } from '../payment/payment.module';
 import { StarRatingModule } from 'angular-star-rating';
+import { PaginatorModule } from '../common/components/paginator/paginator.module';
 
 import { RentalListComponent } from './rental-list/rental-list.component';
 import { RentalListItemComponent } from './rental-list-item/rental-list-item.component';
@@ -64,7 +65,8 @@ const routes: Routes = [
     EditableModule,
     ImageUploadModule,
     PaymentModule,
-    StarRatingModule.forChild()
+    StarRatingModule.forChild(),
+    PaginatorModule
   ],
   providers: [
     RentalService,

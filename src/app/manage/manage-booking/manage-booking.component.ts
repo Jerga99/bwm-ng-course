@@ -66,7 +66,6 @@ export class ManageBookingComponent implements OnInit {
   }
 
   reviewPublished(bookingIndex: number, review: Review) {
-    debugger;
     this.bookings[bookingIndex]['review'] = review;
   }
 }

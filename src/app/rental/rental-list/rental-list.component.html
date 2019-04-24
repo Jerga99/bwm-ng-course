@@ -5,4 +5,11 @@
       <bwm-rental-list-item [rental]="rental"> </bwm-rental-list-item>
     </div>
   </div>
+  <app-paginator #paginator
+               *ngIf="rentalCount"
+               [pageSize]="pageSize"
+               [currentPage]="pageNum"
+               [entitiesCount]="rentalCount"
+               (pageUpdated)="getRentals($event)">
+  </app-paginator>
 </section>

@@ -34,7 +34,6 @@ export class ReviewComponent  {
    }
 
    confirmReview() {
-     debugger;
      this.reviewService.createReview(this.review, this.bookingId)
        .subscribe(
          (review: Review) => {
