@@ -11,10 +11,13 @@ export class RentalListComponent implements OnInit {
 
   rentals: Rental[] = [];
 
+  private pageSize: number = 5;
+  private pageNum: number = 1;
+
   constructor(private rentalService: RentalService) { }
 
   ngOnInit() {
-    const rentalObservable = this.rentalService.getRentals();
+    const rentalObservable = this.rentalService.getRentals({pageSize: this.pageSize, pageNum: this.pageNum});
 
     rentalObservable.subscribe(
     	(rentals: Rental[]) => {
