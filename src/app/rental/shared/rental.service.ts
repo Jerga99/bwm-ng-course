@@ -13,7 +13,7 @@ export class RentalService {
   }
 
   public getRentals(): Observable<any> {
-    return this.http.get('/api/v1/rentals');
+    return this.http.get('/api/v1/rentals').map(rentalData => rentalData['rentals']);
   }
 
   public getRentalsByCity(city: string): Observable<any> {

@@ -148,12 +148,22 @@ router.post('', UserCtrl.authMiddleware, function(req, res) {
   });
 });
 
+// GET RENTALS
+// --------------------------------------
 router.get('', function(req, res) {
   const city = req.query.city;
   const query = city ? {city: city.toLowerCase()} : {};
 
+  // Page Setup
+  const pageSize = parseInt(req.query.pageSize) || 5;
+  const pageNum = parseInt(req.query.pageNum) || 1;
+  const skips = pageSize * (pageNum - 1)
+
   Rental.find(query)
       .select('-bookings')
+      .skip(skips)
+      .limit(pageSize + 1)
+      .sort({'createdAt': -1})
       .exec(function(err, foundRentals) {
 
     if (err) {
@@ -164,7 +174,12 @@ router.get('', function(req, res) {
       return res.status(422).send({errors: [{title: 'No Rentals Found!', detail: `There are no rentals for city ${city}`}]});
     }
 
-    return res.json(foundRentals);
+    let allDataLoaded = false;
+    if (foundRentals.length <= 5 ) {
+      allDataLoaded = true
+    }
+
+    return res.json({rentals: foundRentals.splice(0, pageSize), allDataLoaded});
   });
 });
 
